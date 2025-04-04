@@ -19,7 +19,7 @@ export default function ConstructionServicesHero() {
       description:
         "Building dream homes with premium craftsmanship and attention to detail. We create living spaces that reflect your unique lifestyle and preferences.",
       color: "from-amber-900/80 to-amber-700/20",
-      image: "/src/apartments.jpg",
+      image: "/apartments.jpg",
       slug: "residential",
     },
     {
@@ -27,7 +27,7 @@ export default function ConstructionServicesHero() {
       description:
         "Creating functional spaces that elevate your business presence. From office buildings to retail spaces that leave a lasting impression.",
       color: "from-blue-900/80 to-blue-700/20",
-      image: "/src/commercialbuild.jpg",
+      image: "/commercialbuild.jpg",
       slug: "commercial",
     },
     {
@@ -35,7 +35,7 @@ export default function ConstructionServicesHero() {
       description:
         "Engineering robust facilities for manufacturing and production needs. Built to withstand demands while optimizing workflow efficiency.",
       color: "from-slate-900/80 to-slate-700/20",
-      image: "/src/construction.jpg",
+      image: "/construction.jpg",
       slug: "industrial",
     },
     {
@@ -43,7 +43,7 @@ export default function ConstructionServicesHero() {
       description:
         "Coordinating every aspect of your construction project with precision. Our expert team ensures on-time, on-budget completion.",
       color: "from-emerald-900/80 to-emerald-700/20",
-      image: "/src/project.jpg",
+      image: "/project.jpg",
       slug: "project-management",
     },
     {
@@ -51,7 +51,7 @@ export default function ConstructionServicesHero() {
       description:
         "Transforming existing structures into revitalized, modern spaces. Breathe new life into your property with our renovation expertise.",
       color: "from-red-900/80 to-red-700/20",
-      image: "/src/renovation.jpg",
+      image: "/renovation.jpg",
       slug: "renovation",
     },
   ];

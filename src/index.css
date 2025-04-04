@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+  cursor: none;
+}
+
+@media (max-width: 768px) {
+  html {
+    cursor: auto;
+  }
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@layer base {
+  body {
+    @apply text-slate-800;
+  }
+}
+
+@layer components {
+  .section-title {
+    @apply text-4xl font-bold text-slate-800 mb-4;
+  }
+  
+  .section-divider {
+    @apply w-20 h-1 bg-[#D4AF37] mx-auto mb-6;
+  }
+}

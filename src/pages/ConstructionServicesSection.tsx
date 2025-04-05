@@ -178,9 +178,6 @@ export default function ConstructionServicesHero() {
                   {/* Particle effect overlay */}
                   <div
                     className="absolute inset-0 bg-fixed opacity-30"
-                    style={{
-                      backgroundImage: 'url("/images/noise-texture.png")',
-                    }}
                   ></div>
 
                   {/* Decorative elements */}

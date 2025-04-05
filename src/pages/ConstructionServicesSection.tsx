@@ -6,8 +6,13 @@ import {
   Play,
   ArrowRight,
 } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom"; // Using React Router for navigation
-import { motion, AnimatePresence } from "framer-motion"; // You'll need to install framer-motion
+import { Link, useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import apartment from "../apartments.jpg";
+import project from "../project.jpg";
+import renovation from "../renovation.jpg";
+import commercialbuild from "../commercialbuild.jpg";
+import construction from "../construction.jpg";
 
 export default function ConstructionServicesHero() {
   const navigate = useNavigate();
@@ -19,7 +24,7 @@ export default function ConstructionServicesHero() {
       description:
         "Building dream homes with premium craftsmanship and attention to detail. We create living spaces that reflect your unique lifestyle and preferences.",
       color: "from-amber-900/80 to-amber-700/20",
-      image: "/apartments.jpg",
+      image: apartment,
       slug: "residential",
     },
     {
@@ -27,7 +32,7 @@ export default function ConstructionServicesHero() {
       description:
         "Creating functional spaces that elevate your business presence. From office buildings to retail spaces that leave a lasting impression.",
       color: "from-blue-900/80 to-blue-700/20",
-      image: "/commercialbuild.jpg",
+      image: commercialbuild,
       slug: "commercial",
     },
     {
@@ -35,7 +40,7 @@ export default function ConstructionServicesHero() {
       description:
         "Engineering robust facilities for manufacturing and production needs. Built to withstand demands while optimizing workflow efficiency.",
       color: "from-slate-900/80 to-slate-700/20",
-      image: "/construction.jpg",
+      image: construction,
       slug: "industrial",
     },
     {
@@ -43,7 +48,7 @@ export default function ConstructionServicesHero() {
       description:
         "Coordinating every aspect of your construction project with precision. Our expert team ensures on-time, on-budget completion.",
       color: "from-emerald-900/80 to-emerald-700/20",
-      image: "/project.jpg",
+      image: project,
       slug: "project-management",
     },
     {
@@ -51,7 +56,7 @@ export default function ConstructionServicesHero() {
       description:
         "Transforming existing structures into revitalized, modern spaces. Breathe new life into your property with our renovation expertise.",
       color: "from-red-900/80 to-red-700/20",
-      image: "/renovation.jpg",
+      image: renovation,
       slug: "renovation",
     },
   ];
@@ -173,6 +178,9 @@ export default function ConstructionServicesHero() {
                   {/* Particle effect overlay */}
                   <div
                     className="absolute inset-0 bg-fixed opacity-30"
+                    style={{
+                      backgroundImage: 'url("/images/noise-texture.png")',
+                    }}
                   ></div>
 
                   {/* Decorative elements */}

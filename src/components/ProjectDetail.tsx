@@ -68,7 +68,7 @@ const ProjectDetail = () => {
         <h2 className="text-xl md:text-2xl font-bold mb-4 text-center">Project not found</h2>
         <button
           onClick={handleGoBack}
-          className="flex items-center space-x-2 px-4 py-2 md:px-6 md:py-3 bg-yellow-500 text-black font-medium rounded-md hover:bg-yellow-400 transition-colors"
+          className="mt-6 flex items-center space-x-2 px-4 py-2 md:px-6 md:py-3 bg-yellow-500 text-black font-medium rounded-md hover:bg-yellow-400 transition-colors"
         >
           <ArrowLeft className="w-4 h-4 md:w-5 md:h-5" />
           <span>Back to Projects</span>

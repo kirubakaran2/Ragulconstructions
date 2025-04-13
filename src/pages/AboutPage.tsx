@@ -133,7 +133,7 @@ const AboutPage = () => {
           <span className="inline-block relative">
             <span className="absolute inset-0 bg-amber-50 transform -rotate-1"></span>
             <span className="relative inline-block border border-amber-200 text-amber-900 px-6 py-3 italic text-lg" style={{ fontFamily: "'Cormorant', serif" }}>
-              Established 2025 • Pondicherry
+              Established 1994 • Pondicherry
             </span>
           </span>
         </motion.div>
@@ -248,7 +248,7 @@ const AboutPage = () => {
             <h3 className="text-2xl mb-4 text-neutral-800" style={{ fontFamily: "'Playfair Display', serif" }}>Begin Your Architectural Journey</h3>
             <p className="mb-6 text-neutral-700" style={{ fontFamily: "'Cormorant', serif" }}>Transform your vision into timeless reality with Ragul Construction</p>
             <a 
-              href="#contact"
+              href="/contact"
               className="inline-block bg-amber-800 text-white px-10 py-4 rounded-sm hover:bg-amber-700 transition-colors duration-300 uppercase tracking-wider text-sm"
             >
               Consult with Our Experts

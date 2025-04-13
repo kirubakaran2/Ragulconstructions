@@ -64,15 +64,18 @@ const ModernNavbar = () => {
       >
         {/* Top Navigation */}
         <div className="flex justify-between items-center">
-          <Link to="/" className="flex items-center space-x-3">
+          <Link to="/" className="flex items-center space-x-1">
             <img
               src={logo}
               alt="Logo"
               className="h-10 rounded-lg w-10 text-[#D4AF37]"
             />
-            <div className="flex text-2xl font-bold font-Host+Grotesk bg-gradient-to-r from-[#D4AF37] to-[#B59030] text-transparent bg-clip-text">
-              Ragul Constructions
-            </div>
+<span className="flex text-4xl sm:text-5xl font-bold font-serif bg-gradient-to-r from-[#D4AF37] to-[#B59030] text-transparent bg-clip-text">R</span>
+<div className="flex text-xl sm:text-2xl font-bold font-serif bg-gradient-to-r from-[#D4AF37] to-[#B59030] text-transparent bg-clip-text">
+  AGUL CONSTRUCTIONS
+</div>
+
+
           </Link>
 
           <div className="hidden md:flex space-x-6 items-center">

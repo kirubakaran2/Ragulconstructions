@@ -1,18 +1,26 @@
 import React from 'react';
-import { Building2 } from 'lucide-react';
-import logo from "../assets/ragulconstruction.jpg"; // Import your logo
+import logo from "../assets/ragulconstruction.jpg";
+import stone from "./premium_vector-1683133917118-b6c.jpg";
 const Footer = () => {
   return (
-    <footer className="bg-slate-800 text-white py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <footer className="relative bg-slate-800 text-white py-12 overflow-hidden">
+      {/* Pattern background overlay using Unsplash link */}
+      <div
+        className="absolute inset-0 bg-cover bg-center opacity-10 z-0"
+        style={{
+          backgroundImage: `url(${stone})`, }}
+      ></div>
+
+      {/* Footer content */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-4 gap-8">
           <div className="col-span-2 md:col-span-1">
             <div className="flex items-center mb-4">
-            <img
-            src={logo}
-            alt="Logo"
-            className="h-10 rounded-lg w-10 text-[#D4AF37]"
-          />
+              <img
+                src={logo}
+                alt="Logo"
+                className="h-10 w-10 rounded-lg"
+              />
               <span className="ml-2 text-xl font-bold">Ragul Construction</span>
             </div>
             <p className="text-slate-400">
@@ -21,20 +29,28 @@ const Footer = () => {
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
-            <ul className="space-y-2">
-              {['Home', 'About', 'Services', 'Packages', 'Contact'].map((link) => (
-                <li key={link}>
-                  <a
-                    href={`#${link.toLowerCase()}`}
-                    className="text-slate-400 hover:text-[#D4AF37] transition-colors duration-200"
-                  >
-                    {link}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+  <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
+  <ul className="space-y-2">
+  {['Home', 'About', 'Services', 'Packages', 'Contact'].map((link) => (
+    <li key={link}>
+      <a
+        href={
+          link === 'Contact'
+            ? '/contact'
+            : link === 'About'
+            ? '/about'
+            : `#${link.toLowerCase()}`
+        }
+        className="text-slate-400 hover:text-[#D4AF37] transition-colors duration-200"
+      >
+        {link}
+      </a>
+    </li>
+  ))}
+</ul>
+
+</div>
+
 
           <div>
             <h3 className="text-lg font-semibold mb-4">Services</h3>
@@ -44,7 +60,7 @@ const Footer = () => {
                 'Commercial Projects',
                 'Industrial Construction',
                 'Project Management',
-                'Renovation'
+                'Renovation',
               ].map((service) => (
                 <li key={service}>
                   <a

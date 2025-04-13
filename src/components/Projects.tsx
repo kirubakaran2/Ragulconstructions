@@ -1,57 +1,56 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+
+interface Project {
+  _id: string;
+  title: string;
+  description: string;
+  year: string;
+  location: string;
+  images: string[];
+}
 
 const Projects = () => {
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
   const containerRef = useRef<HTMLDivElement>(null);
+  
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"]
   });
 
-  const projects = [
-    {
-      title: "Luxury Villa Complex",
-      description: "A collection of 12 premium villas featuring modern architecture and smart home integration",
-      image: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&q=80",
-      year: "2023",
-      location: "Pondicherry"
-    },
-    {
-      title: "Tech Park",
-      description: "State-of-the-art commercial complex with sustainable design elements",
-      image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80",
-      year: "2022",
-      location: "Chennai"
-    },
-    {
-      title: "Seaside Resort",
-      description: "Luxury beachfront resort with 150 rooms and premium amenities",
-      image: "https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&q=80",
-      year: "2022",
-      location: "Mahabalipuram"
-    },
-    {
-      title: "Green Township",
-      description: "Eco-friendly residential township with 500+ apartments",
-      image: "https://images.unsplash.com/photo-1448630360428-65456885c650?auto=format&fit=crop&q=80",
-      year: "2021",
-      location: "Pondicherry"
-    },
-        {
-      title: "Luxury Villa Complex",
-      description: "A collection of 12 premium villas featuring modern architecture and smart home integration",
-      image: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&q=80",
-      year: "2023",
-      location: "Pondicherry"
-    },
-    
-  ];
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/projects');
+        const data = await response.json();
+        setProjects(data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Failed to fetch projects:", error);
+        setLoading(false);
+      }
+    };
 
-  const scroll = (direction: 'left' | 'right') => {
+    fetchProjects();
+  }, []);
+
+  const handleProjectClick = (projectId: string) => {
+    navigate(`/projects/${projectId}`);
+  };
+
+  interface ScrollDirection {
+    direction: 'left' | 'right';
+  }
+
+  const scroll = (direction: ScrollDirection['direction']): void => {
     if (containerRef.current) {
-      const scrollAmount = direction === 'left' ? -400 : 400;
-      containerRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+      const scrollAmount: number = direction === 'left' ? -400 : 400;
+      containerRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' as const });
     }
   };
 
@@ -72,51 +71,61 @@ const Projects = () => {
           </p>
         </div>
 
-        <div className="relative">
-          <button
-            onClick={() => scroll('left')}
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-white/10 hover:bg-white/20 text-white p-3 rounded-full backdrop-blur-sm transition-all duration-200 hidden md:block"
-          >
-            <ChevronLeft className="w-6 h-6" />
-          </button>
-          
-          <button
-            onClick={() => scroll('right')}
-            className="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-white/10 hover:bg-white/20 text-white p-3 rounded-full backdrop-blur-sm transition-all duration-200 hidden md:block"
-          >
-            <ChevronRight className="w-6 h-6" />
-          </button>
-
-          <div className="flex gap-8 overflow-x-auto pb-8 snap-x snap-mandatory scrollbar-hide">
-            {projects.map((project, index) => (
-              <motion.div
-                key={project.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.2 }}
-                className="min-w-[300px] md:min-w-[400px] snap-center group cursor-pointer"
-              >
-                <div className="relative overflow-hidden rounded-xl">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  
-                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-sm font-medium text-[#D4AF37]">{project.year}</span>
-                      <span className="text-sm">{project.location}</span>
-                    </div>
-                    <h3 className="text-xl font-bold mb-2">{project.title}</h3>
-                    <p className="text-sm text-gray-300">{project.description}</p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
+        {loading ? (
+          <div className="flex justify-center items-center h-64">
+            <div className="w-12 h-12 border-4 border-t-4 border-white border-t-blue-500 rounded-full animate-spin"></div>
           </div>
-        </div>
+        ) : (
+          <div className="relative">
+            <button
+              onClick={() => scroll('left')}
+              className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-white/10 hover:bg-white/20 text-white p-3 rounded-full backdrop-blur-sm transition-all duration-200 hidden md:block"
+            >
+              <ChevronLeft className="w-6 h-6" />
+            </button>
+            
+            <button
+              onClick={() => scroll('right')}
+              className="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-white/10 hover:bg-white/20 text-white p-3 rounded-full backdrop-blur-sm transition-all duration-200 hidden md:block"
+            >
+              <ChevronRight className="w-6 h-6" />
+            </button>
+
+            <div className="flex gap-6 overflow-x-auto pb-8 snap-x snap-mandatory scrollbar-hide md:gap-8">
+              {projects.map((project, index) => (
+                <motion.div
+                  key={project._id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.2 }}
+                  className="min-w-[280px] md:min-w-[400px] snap-center group cursor-pointer"
+                  onClick={() => handleProjectClick(project._id)}
+                >
+                  <div className="relative overflow-hidden rounded-xl shadow-lg">
+                    <img
+                      src={project.images[0] || "/placeholder-image.jpg"}
+                      alt={project.title}
+                      className="w-full h-56 md:h-64 object-cover transform group-hover:scale-110 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-70 group-hover:opacity-90 transition-opacity duration-300" />
+                    
+                    <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6 text-white transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="text-sm font-medium text-yellow-400">{project.year}</span>
+                        <span className="text-sm">{project.location}</span>
+                      </div>
+                      <h3 className="text-lg md:text-xl font-bold mb-2">{project.title}</h3>
+                      <p className="text-sm md:text-base text-gray-300 mb-3 truncate">{project.description}</p>
+                      <button className="mt-3 px-3 py-1 bg-yellow-500 text-black text-xs font-medium rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        View Details
+                      </button>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </motion.section>
   );

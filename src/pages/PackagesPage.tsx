@@ -1,10 +1,27 @@
-import React, { useState } from 'react';
 import { Check, Download, ChevronDown, ChevronUp } from 'lucide-react';
-import CustomCursor from '../components/CustomCursor';
+import React, { useState } from 'react';
 import pdf from '../assets/pack.pdf';
+import residentialPDF from '../assets/RESIDENTIAL PACKAGE.pdf';
+import commercialPDF from '../assets/COMMERCIAL PACKAGE.pdf';
+
+
+interface Package {
+  name: string;
+  price: string;
+  description: string;
+  features: string[];
+  highlighted?: boolean;
+}
+
+type PackageName = string;
 
 const PackagesPage = () => {
-  const [packageType, setPackageType] = useState('residential');
+  const [showModal, setShowModal] = useState(false);
+  const [formData, setFormData] = useState({ email: '', phone: '' });
+  const [packageType, setPackageType] = useState<'residential' | 'commercial'>('residential');
+  const [expanded, setExpanded] = useState<Record<string, boolean>>({});
+  const [selectedPackages, setSelectedPackages] = useState<PackageName[]>([]);
+  const [hoveredPackage, setHoveredPackage] = useState<string | null>(null);
 
   const residentialPackages = [
     {
@@ -128,37 +145,57 @@ const PackagesPage = () => {
 
   const packages = packageType === 'residential' ? residentialPackages : commercialPackages;
 
-  const [expanded, setExpanded] = useState({});
-  const [selectedPackages, setSelectedPackages] = useState([]);
-  const [hoveredPackage, setHoveredPackage] = useState(null);
+  const allFeatures = Array.from(new Set(packages.flatMap((pkg) => pkg.features))).sort((a, b) =>
+    a.localeCompare(b)
+  );
 
-  const handleToggle = (pkgName) => {
-    setExpanded(prev => ({ ...prev, [pkgName]: !prev[pkgName] }));
+  const handleToggle = (pkgName: string) => {
+    setExpanded((prev) => ({ ...prev, [pkgName]: !prev[pkgName] }));
   };
 
-  const handleSelectPackage = (pkgName) => {
-    setSelectedPackages(prev =>
-      prev.includes(pkgName)
-        ? prev.filter(pkg => pkg !== pkgName)
-        : [...prev, pkgName]
+  const handleSelectPackage = (pkgName: PackageName) => {
+    setSelectedPackages((prev) =>
+      prev.includes(pkgName) ? prev.filter((pkg) => pkg !== pkgName) : [...prev, pkgName]
     );
   };
 
-  const handleDownload = () => {
+  const handleDownloadClick = () => setShowModal(true);
+
+  const handleFinalDownload = () => {
+    const selectedPDF = packageType === 'residential' ? residentialPDF : commercialPDF;
     const link = document.createElement('a');
-    link.href = pdf;
-    link.download = 'Construction_Package_Details.pdf';
+    link.href = selectedPDF;
+    link.download = packageType === 'residential'
+      ? 'Residential_Construction_Package.pdf'
+      : 'Commercial_Construction_Package.pdf';
     link.click();
   };
+  
 
-  // Get all unique features for comparison table
-  const allFeatures = Array.from(
-    new Set(packages.flatMap(pkg => pkg.features))
-  ).sort((a, b) => a.localeCompare(b));
+  const handleFormSubmit = async () => {
+    try {
+      await fetch('https://ragulconstructions-backend.onrender.com/api/submit-inquiry/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+    } catch (error) {
+      console.error('Error submitting contact info:', error);
+    } finally {
+      setShowModal(false);
+      handleFinalDownload();
+    }
+  };
+
+  const handleCancel = () => {
+    setShowModal(false);
+    handleFinalDownload();
+  };
 
   return (
     <section id="packages" className="py-20 bg-gradient-to-b from-gray-50 to-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
             Construction Packages Tailored for You
@@ -166,7 +203,6 @@ const PackagesPage = () => {
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Select the perfect package that matches your construction vision and budget
           </p>
-          
           {/* Package Type Toggle */}
           <div className="flex justify-center mt-6">
             <div className="inline-flex rounded-md shadow-sm">
@@ -199,7 +235,9 @@ const PackagesPage = () => {
           {packages.map((pkg) => (
             <div
               key={pkg.name}
-              className={`relative rounded-xl overflow-hidden shadow-lg transition-all duration-300 ${pkg.highlighted ? 'ring-4 ring-amber-400' : 'hover:shadow-xl'} ${hoveredPackage === pkg.name ? 'transform -translate-y-2' : ''}`}
+              className={`relative rounded-xl overflow-hidden shadow-lg transition-all duration-300 ${
+                pkg.highlighted ? 'ring-4 ring-amber-400' : 'hover:shadow-xl'
+              } ${hoveredPackage === pkg.name ? 'transform -translate-y-2' : ''}`}
               onMouseEnter={() => setHoveredPackage(pkg.name)}
               onMouseLeave={() => setHoveredPackage(null)}
             >
@@ -208,22 +246,16 @@ const PackagesPage = () => {
                   POPULAR
                 </div>
               )}
-              
+
               <div className={`h-full flex flex-col ${pkg.highlighted ? 'bg-gradient-to-br from-amber-500 to-amber-600' : 'bg-white'}`}>
                 <div className="p-6 pb-0">
-                  <h3 className={`text-2xl font-bold ${pkg.highlighted ? 'text-white' : 'text-gray-900'}`}>
-                    {pkg.name}
-                  </h3>
+                  <h3 className={`text-2xl font-bold ${pkg.highlighted ? 'text-white' : 'text-gray-900'}`}>{pkg.name}</h3>
                   <div className="flex items-baseline mt-2 mb-4">
-                    <span className={`text-4xl font-bold ${pkg.highlighted ? 'text-white' : 'text-gray-900'}`}>
-                      {pkg.price}
-                    </span>
-                    <span className={`ml-2 text-sm ${pkg.highlighted ? 'text-amber-100' : 'text-gray-500'}`}>
-                      {pkg.description}
-                    </span>
+                    <span className={`text-4xl font-bold ${pkg.highlighted ? 'text-white' : 'text-gray-900'}`}>{pkg.price}</span>
+                    <span className={`ml-2 text-sm ${pkg.highlighted ? 'text-amber-100' : 'text-gray-500'}`}>{pkg.description}</span>
                   </div>
                 </div>
-                
+
                 <div className="flex-grow p-6 pt-0">
                   <ul className="space-y-3">
                     {(expanded[pkg.name] ? pkg.features : pkg.features.slice(0, 5)).map((feature, idx) => (
@@ -233,11 +265,12 @@ const PackagesPage = () => {
                       </li>
                     ))}
                   </ul>
-                  
                   {pkg.features.length > 5 && (
                     <button
                       onClick={() => handleToggle(pkg.name)}
-                      className={`mt-4 flex items-center text-sm font-medium ${pkg.highlighted ? 'text-white hover:text-amber-100' : 'text-amber-600 hover:text-amber-700'}`}
+                      className={`mt-4 flex items-center text-sm font-medium ${
+                        pkg.highlighted ? 'text-white hover:text-amber-100' : 'text-amber-600 hover:text-amber-700'
+                      }`}
                     >
                       {expanded[pkg.name] ? (
                         <>
@@ -253,7 +286,7 @@ const PackagesPage = () => {
                     </button>
                   )}
                 </div>
-                
+
                 <div className="p-6 pt-0">
                   <div className="flex flex-col space-y-3">
                     <button
@@ -262,19 +295,16 @@ const PackagesPage = () => {
                         selectedPackages.includes(pkg.name)
                           ? 'bg-amber-600 text-white hover:bg-amber-700'
                           : pkg.highlighted
-                            ? 'bg-white text-amber-600 hover:bg-gray-100'
-                            : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
+                          ? 'bg-white text-amber-600 hover:bg-gray-100'
+                          : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
                       }`}
                     >
                       {selectedPackages.includes(pkg.name) ? 'Selected ✓' : 'Compare Packages'}
                     </button>
-                    
                     <button
-                      onClick={handleDownload}
+                      onClick={handleDownloadClick}
                       className={`py-3 px-4 rounded-lg font-medium transition-all duration-200 flex items-center justify-center ${
-                        pkg.highlighted
-                          ? 'bg-amber-700 text-white hover:bg-amber-800'
-                          : 'bg-amber-500 text-white hover:bg-amber-600'
+                        pkg.highlighted ? 'bg-amber-700 text-white hover:bg-amber-800' : 'bg-amber-500 text-white hover:bg-amber-600'
                       }`}
                     >
                       <Download className="w-4 h-4 mr-2" />
@@ -287,33 +317,26 @@ const PackagesPage = () => {
           ))}
         </div>
 
-        {/* Comparison Section */}
+        {/* Comparison Table */}
         {selectedPackages.length > 1 && (
           <div className="mt-16 animate-fadeIn">
             <div className="bg-white rounded-xl shadow-lg overflow-hidden">
               <div className="p-6 border-b">
-                <h3 className="text-2xl font-bold text-gray-900">
-                  Comparing {selectedPackages.length} Packages
-                </h3>
-                <p className="text-gray-600 mt-1">
-                  See the detailed feature comparison below
-                </p>
+                <h3 className="text-2xl font-bold text-gray-900">Comparing {selectedPackages.length} Packages</h3>
+                <p className="text-gray-600 mt-1">See the detailed feature comparison below</p>
               </div>
-              
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
                     <tr className="border-b">
-                      <th className="px-6 py-4 text-left text-lg font-semibold text-gray-900 min-w-[300px]">
-                        Features
-                      </th>
-                      {selectedPackages.map(pkgName => {
-                        const pkg = packages.find(p => p.name === pkgName);
+                      <th className="px-6 py-4 text-left text-lg font-semibold text-gray-900 min-w-[300px]">Features</th>
+                      {selectedPackages.map((pkgName) => {
+                        const pkg = packages.find((p) => p.name === pkgName);
                         return (
                           <th key={pkgName} className="px-6 py-4 text-center">
                             <div className="flex flex-col items-center">
                               <span className="text-lg font-semibold text-gray-900">{pkgName}</span>
-                              <span className="text-sm text-gray-500 mt-1">{pkg.price}</span>
+                              <span className="text-sm text-gray-500 mt-1">{pkg?.price}</span>
                             </div>
                           </th>
                         );
@@ -324,9 +347,9 @@ const PackagesPage = () => {
                     {allFeatures.map((feature, idx) => (
                       <tr key={idx} className={`${idx % 2 === 0 ? 'bg-gray-50' : 'bg-white'} border-b`}>
                         <td className="px-6 py-4 text-gray-700">{feature}</td>
-                        {selectedPackages.map(pkgName => {
-                          const pkg = packages.find(p => p.name === pkgName);
-                          const hasFeature = pkg.features.includes(feature);
+                        {selectedPackages.map((pkgName) => {
+                          const pkg = packages.find((p) => p.name === pkgName);
+                          const hasFeature = pkg?.features.includes(feature);
                           return (
                             <td key={pkgName} className="px-6 py-4 text-center">
                               {hasFeature ? (
@@ -342,7 +365,6 @@ const PackagesPage = () => {
                   </tbody>
                 </table>
               </div>
-              
               <div className="p-4 bg-gray-50 flex justify-end">
                 <button
                   onClick={() => setSelectedPackages([])}
@@ -357,15 +379,13 @@ const PackagesPage = () => {
 
         {/* CTA Section */}
         <div className="mt-16 bg-gradient-to-r from-amber-500 to-amber-600 rounded-xl p-8 text-center text-white shadow-lg">
-          <h3 className="text-2xl md:text-3xl font-bold mb-4">
-            Need Help Choosing the Right Package?
-          </h3>
+          <h3 className="text-2xl md:text-3xl font-bold mb-4">Need Help Choosing the Right Package?</h3>
           <p className="text-amber-100 max-w-2xl mx-auto mb-6">
             Our construction experts are ready to guide you to the perfect solution for your project.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <button
-              onClick={handleDownload}
+              onClick={handleDownloadClick}
               className="px-6 py-3 bg-white text-amber-600 font-medium rounded-lg hover:bg-gray-100 transition-colors flex items-center justify-center"
             >
               <Download className="w-5 h-5 mr-2" />
@@ -376,6 +396,46 @@ const PackagesPage = () => {
             </button>
           </div>
         </div>
+
+        {/* Modal */}
+        {showModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white rounded-lg p-6 w-full max-w-md shadow-lg relative">
+              <h3 className="text-xl font-bold mb-4">Get the Full Brochure</h3>
+              <p className="text-gray-600 mb-4">Share your email & phone for updates. Or skip!</p>
+              <div className="space-y-4">
+                <input
+                  type="email"
+                  placeholder="Email"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  className="w-full border rounded px-4 py-2"
+                />
+                <input
+                  type="tel"
+                  placeholder="Phone"
+                  value={formData.phone}
+                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  className="w-full border rounded px-4 py-2"
+                />
+              </div>
+              <div className="mt-6 flex justify-end gap-3">
+                <button
+                  onClick={handleCancel}
+                  className="px-4 py-2 bg-gray-100 text-gray-700 rounded hover:bg-gray-200"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleFormSubmit}
+                  className="px-4 py-2 bg-amber-600 text-white rounded hover:bg-amber-700"
+                >
+                  Submit & Download
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );

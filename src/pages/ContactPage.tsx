@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Phone, Mail, MapPin, Send, User, MessageSquare } from 'lucide-react';
+import { Phone, Mail, MapPin, Send, User, MessageSquare,PhoneCall } from 'lucide-react';
 
 const ContactPage = () => {
   const [formState, setFormState] = useState({
     name: '',
     email: '',
+    phone:'',
     message: ''
   });
   
@@ -18,22 +19,45 @@ const ContactPage = () => {
     });
   };
   
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // Simulate form submission
-    setTimeout(() => {
+  
+    try {
+      const response = await fetch('https://ragulconstructions-backend.onrender.com/api/submit-inquiry', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: formState.name,
+          email: formState.email,
+          phone: formState.phone,
+          msg: formState.message
+        })
+      });
+  
+      const data = await response.json();
+  
+      if (response.ok) {
+        setSubmitSuccess(true);
+        setFormState({ name: '', email: '', phone: '', message: '' });
+  
+        setTimeout(() => {
+          setSubmitSuccess(false);
+        }, 3000);
+      } else {
+        console.error('Submission failed:', data.message);
+        alert('Something went wrong. Please try again later.');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      alert('Something went wrong. Please try again later.');
+    } finally {
       setIsSubmitting(false);
-      setSubmitSuccess(true);
-      
-      // Reset form after success message
-      setTimeout(() => {
-        setSubmitSuccess(false);
-        setFormState({ name: '', email: '', message: '' });
-      }, 3000);
-    }, 1500);
+    }
   };
+  
   
   const contactInfo = [
     {
@@ -158,6 +182,21 @@ const ContactPage = () => {
                       onChange={handleChange}
                       className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-400 focus:border-amber-400 transition-all"
                       placeholder="johndoe@example.com"
+                      required
+                    />
+                  </div>
+                  <div className="mb-6">
+                    <label htmlFor="name" className="flex items-center text-sm font-medium text-slate-700 mb-2">
+                      <PhoneCall className="w-4 h-4 mr-2 text-amber-500" />
+                      Phone
+                    </label>
+                    <input
+                      type="text"
+                      id="phone"
+                      value={formState.phone}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-400 focus:border-amber-400 transition-all"
+                      placeholder="+91 987654112130"
                       required
                     />
                   </div>

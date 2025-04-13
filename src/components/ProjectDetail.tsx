@@ -82,7 +82,7 @@ const ProjectDetail = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-16">
         <button
           onClick={handleGoBack}
-          className="flex items-center space-x-2 mb-8 px-3 py-1.5 md:px-4 md:py-2 bg-white/10 rounded-md hover:bg-white/20 transition-colors"
+          className="mt-6 flex items-center space-x-2 mb-8 px-3 py-1.5 md:px-4 md:py-2 bg-white/10 rounded-md hover:bg-white/20 transition-colors"
         >
           <ArrowLeft className="w-4 h-4 md:w-5 md:h-5" />
           <span className="text-sm md:text-base">Back to Projects</span>

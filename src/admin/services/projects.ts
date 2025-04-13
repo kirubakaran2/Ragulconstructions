@@ -17,7 +17,7 @@ export interface Project {
   __v?: number;
 }
 
-const API_URL = 'http://localhost:5000/api/projects';
+const API_URL = 'https://ragulconstructions-backend.onrender.com/api/projects';
 
 // Helper function to get the JWT token from localStorage
 const getAuthToken = () => localStorage.getItem('token');

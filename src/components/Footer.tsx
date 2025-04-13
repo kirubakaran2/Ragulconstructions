@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from "../assets/ragulconstruction.jpg";
 import stone from "./premium_vector-1683133917118-b6c.jpg";
+
 const Footer = () => {
   return (
     <footer className="relative bg-slate-800 text-white py-12 overflow-hidden">
@@ -8,7 +9,8 @@ const Footer = () => {
       <div
         className="absolute inset-0 bg-cover bg-center opacity-10 z-0"
         style={{
-          backgroundImage: `url(${stone})`, }}
+          backgroundImage: `url(${stone})`,
+        }}
       ></div>
 
       {/* Footer content */}
@@ -29,28 +31,32 @@ const Footer = () => {
           </div>
 
           <div>
-  <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
-  <ul className="space-y-2">
-  {['Home', 'About', 'Services', 'Packages', 'Contact'].map((link) => (
-    <li key={link}>
-      <a
-        href={
-          link === 'Contact'
-            ? '/contact'
-            : link === 'About'
-            ? '/about'
-            : `#${link.toLowerCase()}`
-        }
-        className="text-slate-400 hover:text-[#D4AF37] transition-colors duration-200"
-      >
-        {link}
-      </a>
-    </li>
-  ))}
-</ul>
-
-</div>
-
+            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
+            <ul className="space-y-2">
+              {['Home', 'About', 'Services', 'Packages', 'Contact'].map((link) => (
+                <li key={link}>
+                  <a
+                    href={
+                      link === 'Home'
+                        ? '/'
+                        : link === 'Contact'
+                        ? '/contact'
+                        : link === 'Services'
+                        ? '/services'
+                        : link === 'Packages'
+                        ? '/packages'
+                        : link === 'About'
+                        ? '/about'
+                        : `#${link.toLowerCase()}`
+                    }
+                    className="text-slate-400 hover:text-[#D4AF37] transition-colors duration-200"
+                  >
+                    {link}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
 
           <div>
             <h3 className="text-lg font-semibold mb-4">Services</h3>

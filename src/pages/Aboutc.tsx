@@ -4,6 +4,9 @@ import logo from "../assets/ragulconstruction.jpg"; // Import your logo
 
 const About = () => {
   const canvasRef = useRef(null);
+  const handlecontactClick = () => {
+    window.location.href = '/contact'; // Redirect to contact page  
+  }
 
   // Background animation using canvas
   useEffect(() => {
@@ -230,6 +233,7 @@ const About = () => {
               
               <motion.button
                 whileHover={{ scale: 1.05 }}
+                onClick={handlecontactClick}
                 className="px-6 py-3 bg-[#D4AF37] text-white rounded-full font-medium hover:bg-[#B59030] transition-colors duration-300"
               >
                 Contact us today

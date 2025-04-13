@@ -32,6 +32,7 @@ const Services = () => {
   interface Project {
     _id: string;
     type: string;
+    // Add other project properties as needed
   }
   
   const [projects, setProjects] = useState<Project[]>([]);

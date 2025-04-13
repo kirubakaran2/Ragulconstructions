@@ -70,10 +70,10 @@ const ModernNavbar = () => {
               alt="Logo"
               className="h-10 rounded-lg w-10 text-[#D4AF37]"
             />
-<span className="flex text-4xl sm:text-5xl font-bold font-serif bg-gradient-to-r from-[#D4AF37] to-[#B59030] text-transparent bg-clip-text">R</span>
+{/* <span className="flex text-4xl sm:text-5xl font-bold font-serif bg-gradient-to-r from-[#D4AF37] to-[#B59030] text-transparent bg-clip-text">R</span>
 <div className="flex text-xl sm:text-2xl font-bold font-serif bg-gradient-to-r from-[#D4AF37] to-[#B59030] text-transparent bg-clip-text">
   AGUL CONSTRUCTIONS
-</div>
+</div> */}
 
 
           </Link>

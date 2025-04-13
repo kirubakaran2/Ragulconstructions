@@ -22,7 +22,7 @@ const ProjectDetail = () => {
     const fetchProject = async () => {
       try {
         const response = await fetch(
-          `http://locahost:5000/api/projects/${id}`
+          `https://ragulconstructions-backend.onrender.com/api/projects/${id}`
         );
         const data = await response.json();
         setProject(data);

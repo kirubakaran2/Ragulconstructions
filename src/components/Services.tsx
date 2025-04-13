@@ -1,5 +1,6 @@
 import React from 'react';
 import { Home, Building2, Briefcase, Factory } from 'lucide-react';
+import Navbar from '../components/NavBar';
 
 const Services = () => {
   const services = [
@@ -26,6 +27,7 @@ const Services = () => {
   ];
 
   return (
+    <Navbar>
     <section id="services" className="py-20 bg-slate-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
@@ -50,6 +52,7 @@ const Services = () => {
         </div>
       </div>
     </section>
+    </Navbar>
   );
 };
 

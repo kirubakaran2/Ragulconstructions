@@ -30,6 +30,7 @@ function App() {
           <Route path="/projects/:id" element={<ProjectDetail />} />
           <Route path="/admin-signin" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="*" element={<HomePage />} />
         </Routes>
         <Footer />
       </div>

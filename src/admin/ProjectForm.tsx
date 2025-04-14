@@ -1,5 +1,5 @@
 import { useState, useEffect, ChangeEvent, FormEvent } from "react";
-import { toast } from "react-hot-toast"; // ✅ Import toast
+import { toast } from "react-hot-toast";
 import projectService from "./services/projects";
 
 interface Project {
@@ -32,6 +32,8 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ project, onClose, onSave }) =
   const [type, setType] = useState("");
   const [images, setImages] = useState<File[]>([]);
   const [previewImages, setPreviewImages] = useState<string[]>([]);
+  // Track existing images separately from new uploads
+  const [existingImages, setExistingImages] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -46,6 +48,7 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ project, onClose, onSave }) =
       setfeedback(project.feedback);
       setinstalink(project.instalink);
       setPreviewImages(project.images || []);
+      setExistingImages(project.images || []);
     }
   }, [project]);
 
@@ -62,11 +65,16 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ project, onClose, onSave }) =
     newPreview.splice(index, 1);
     setPreviewImages(newPreview);
 
-    if (index < previewImages.length - images.length) {
-      // Handle removing old image from existing ones if needed
+    if (project && index < existingImages.length) {
+      // Handle removing an existing image
+      const newExistingImages = [...existingImages];
+      newExistingImages.splice(index, 1);
+      setExistingImages(newExistingImages);
     } else {
+      // Handle removing a newly added image
+      const adjustedIndex = project ? index - existingImages.length : index;
       const newImages = [...images];
-      newImages.splice(index - (previewImages.length - images.length), 1);
+      newImages.splice(adjustedIndex, 1);
       setImages(newImages);
     }
   };
@@ -86,22 +94,31 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ project, onClose, onSave }) =
       formData.append("ytlink", ytlink);
       formData.append("instalink", instalink);
       formData.append("feedback", feedback);
+      
+      // Add existing images to formData
+      if (project) {
+        existingImages.forEach((image, index) => {
+          formData.append(`existingImages[${index}]`, image);
+        });
+      }
+      
+      // Add new images to formData
       images.forEach((image) => {
         formData.append("images", image);
       });
 
       if (project) {
         await projectService.update(project._id!, formData);
-        toast.success("Project updated successfully!"); // ✅ Toast on update
+        toast.success("Project updated successfully!");
       } else {
         await projectService.create(formData);
-        toast.success("Project created successfully!"); // ✅ Toast on create
+        toast.success("Project created successfully!");
       }
 
       onSave();
     } catch (err: any) {
       setError(err.message || "Something went wrong");
-      toast.error(err.message || "Something went wrong"); // ❌ Toast on error
+      toast.error(err.message || "Something went wrong");
     } finally {
       setIsLoading(false);
     }
@@ -221,8 +238,8 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ project, onClose, onSave }) =
                     Project Type
                   </label>
                   <select
-                    value={type} // You can change the state variable name if you prefer (e.g., setProjectType)
-                    onChange={(e) => setType(e.target.value)} // Make sure the state variable matches
+                    value={type}
+                    onChange={(e) => setType(e.target.value)}
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                     required
                   >

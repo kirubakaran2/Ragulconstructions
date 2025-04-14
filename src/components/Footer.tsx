@@ -23,7 +23,7 @@ const Footer = () => {
                 alt="Logo"
                 className="h-10 w-10 rounded-lg"
               />
-              <span className="ml-2 text-xl font-bold">Ragul Construction</span>
+              <span className="ml-2 text-xl font-bold">Ragul Constructions</span>
             </div>
             <p className="text-slate-400">
               Building dreams into reality with excellence and precision since 1994.
@@ -90,7 +90,7 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-slate-700 mt-8 pt-8 text-center text-slate-400">
-          <p>&copy; {new Date().getFullYear()} Ragul Construction. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Ragul Constructions. All rights reserved.</p>
         </div>
       </div>
     </footer>

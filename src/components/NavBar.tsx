@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Instagram, X } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
@@ -7,8 +7,6 @@ import logo from "../assets/ragulconstruction.jpg";
 
 const ModernNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [lastScrollY, setLastScrollY] = useState(0);
-  const [visible, setVisible] = useState(true);
 
   const menuItems = [
     { name: "Home", number: "01", path: "/" },
@@ -19,29 +17,7 @@ const ModernNavbar = () => {
   ];
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-
-  const handleMenuItemClick = () => {
-    setIsMenuOpen(false);
-  };
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        // Scrolling down
-        setVisible(false);
-      } else if (currentScrollY < lastScrollY) {
-        // Scrolling up
-        setVisible(true);
-      }
-      
-      setLastScrollY(currentScrollY);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY]);
+  const handleMenuItemClick = () => setIsMenuOpen(false);
 
   return (
     <>
@@ -56,13 +32,7 @@ const ModernNavbar = () => {
       </a>
 
       {/* Navbar */}
-      <motion.nav
-        className="fixed top-0 left-0 w-full z-50 p-2 text-neutral-800 bg-transparent shadow-sm"
-        initial={{ y: 0 }}
-        animate={{ y: visible ? 0 : -100 }}
-        transition={{ type: "spring", damping: 20 }}
-      >
-        {/* Top Navigation */}
+      <nav className="fixed top-0 left-0 w-full z-50 p-2 text-neutral-800 bg-white shadow-md transition-all duration-300">
         <div className="flex justify-between items-center">
           <Link to="/" className="flex items-center space-x-1">
             <img
@@ -70,28 +40,31 @@ const ModernNavbar = () => {
               alt="Logo"
               className="h-10 rounded-lg w-10 text-[#D4AF37]"
             />
-{/* <span className="flex text-4xl sm:text-5xl font-bold font-serif bg-gradient-to-r from-[#D4AF37] to-[#B59030] text-transparent bg-clip-text">R</span>
-<div className="flex text-xl sm:text-2xl font-bold font-serif bg-gradient-to-r from-[#D4AF37] to-[#B59030] text-transparent bg-clip-text">
-  AGUL CONSTRUCTIONS
-</div> */}
-
-
+            {/* <span className="flex text-4xl sm:text-5xl font-bold font-serif bg-gradient-to-r from-[#D4AF37] to-[#B59030] text-transparent bg-clip-text">
+              R
+            </span> */}
+            <div className="flex text-xl sm:text-2xl font-bold font-serif bg-gradient-to-r from-[#D4AF37] to-[#B59030] text-transparent bg-clip-text">
+              AGUL CONSTRUCTIONS
+            </div>
           </Link>
 
           <div className="hidden md:flex space-x-6 items-center">
-            <button className="text-sm uppercase tracking-wider hover:text-neutral-600 flex text-2xl font-bold font-Host+Grotesk bg-gradient-to-r from-[#D4AF37] to-[#B59030] text-transparent bg-clip-text">
-              <Link to="/contact">CONTACT</Link>
-            </button>
+            <Link
+              to="/contact"
+              className="text-sm uppercase tracking-wider flex text-2xl font-bold font-Host+Grotesk bg-gradient-to-r from-[#D4AF37] to-[#B59030] text-transparent bg-clip-text"
+            >
+              CONTACT
+            </Link>
 
             <button
               onClick={toggleMenu}
-              className="text-sm uppercase tracking-wider hover:text-neutral-600 flex text-2xl font-bold font-Host+Grotesk bg-gradient-to-r from-[black] to-[black] text-transparent bg-clip-text"
+              className="text-sm uppercase tracking-wider flex text-2xl font-bold font-Host+Grotesk bg-gradient-to-r from-black to-black text-transparent bg-clip-text"
             >
               Menu
             </button>
           </div>
 
-          {/* Mobile Menu Toggle - Always Visible */}
+          {/* Mobile Menu Toggle */}
           <motion.div
             className="md:hidden cursor-pointer z-50"
             onClick={toggleMenu}
@@ -103,14 +76,12 @@ const ModernNavbar = () => {
                 animate={{
                   rotate: isMenuOpen ? 45 : 0,
                   y: isMenuOpen ? 8 : 0,
-                  width: isMenuOpen ? "1.5rem" : "1.5rem",
                 }}
               />
               <motion.div
                 className="w-6 h-0.5 bg-neutral-800"
                 animate={{
                   opacity: isMenuOpen ? 0 : 1,
-                  width: isMenuOpen ? "0" : "1.5rem",
                 }}
               />
               <motion.div
@@ -118,22 +89,17 @@ const ModernNavbar = () => {
                 animate={{
                   rotate: isMenuOpen ? -45 : 0,
                   y: isMenuOpen ? -8 : 0,
-                  width: isMenuOpen ? "1.5rem" : "1.5rem",
                 }}
               />
             </div>
           </motion.div>
         </div>
 
-        {/* Full Screen Menu */}
+        {/* Fullscreen Mobile Menu */}
         <AnimatePresence>
           {isMenuOpen && (
             <motion.div
-              initial={{
-                opacity: 0,
-                scale: 0.9,
-                y: "100%",
-              }}
+              initial={{ opacity: 0, scale: 0.95, y: "100%" }}
               animate={{
                 opacity: 1,
                 scale: 1,
@@ -154,7 +120,6 @@ const ModernNavbar = () => {
               }}
               className="fixed inset-0 bg-white/95 z-50 overflow-hidden backdrop-blur-sm"
             >
-              {/* Smoke-like background effect */}
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{
@@ -169,12 +134,11 @@ const ModernNavbar = () => {
               />
 
               <div className="container mx-auto px-6 py-12 h-full flex flex-col justify-between relative z-10">
-                {/* Close Button */}
                 <div className="flex justify-between items-center">
                   <div className="flex items-center space-x-3">
                     <img src={logo} alt="Logo" className="h-10 rounded-lg w-10" />
                     <div className="flex text-2xl font-bold font-Host+Grotesk bg-gradient-to-r from-[#D4AF37] to-[#B59030] text-transparent bg-clip-text">
-                      RagulConstructions
+                      Ragul Constructions
                     </div>
                   </div>
                   <button onClick={toggleMenu} className="text-neutral-800">
@@ -182,10 +146,9 @@ const ModernNavbar = () => {
                   </button>
                 </div>
 
-                {/* Menu Items */}
                 <div className="flex-grow flex items-center justify-center">
                   <div className="space-y-6 text-center">
-                    {menuItems.map((item) => (
+                    {menuItems.map((item, index) => (
                       <motion.div
                         key={item.name}
                         initial={{ opacity: 0, y: 20 }}
@@ -193,7 +156,7 @@ const ModernNavbar = () => {
                           opacity: 1,
                           y: 0,
                           transition: {
-                            delay: menuItems.indexOf(item) * 0.1,
+                            delay: index * 0.1,
                             duration: 0.5,
                           },
                         }}
@@ -210,7 +173,7 @@ const ModernNavbar = () => {
                         <Link
                           to={item.path}
                           onClick={handleMenuItemClick}
-                          className="text-5xl font-Host+Grotesk bg-gradient-to-r from-[#D4AF37] to-[#B59030] text-transparent bg-clip-text text-neutral-800 hover:text-neutral-600 transition-colors duration-300"
+                          className="text-5xl font-Host+Grotesk bg-gradient-to-r from-[#D4AF37] to-[#B59030] text-transparent bg-clip-text hover:text-neutral-600 transition-colors duration-300"
                         >
                           {item.name}
                         </Link>
@@ -219,14 +182,12 @@ const ModernNavbar = () => {
                   </div>
                 </div>
 
-                {/* Footer */}
                 <div className="flex flex-col md:flex-row justify-between items-center md:items-end text-sm text-neutral-600 mt-8 md:mt-0">
                   <div className="text-center md:text-left mb-4 md:mb-0">
                     <div>E-MAIL</div>
                     <div>constructionsragul@gmail.com</div>
                   </div>
 
-                  {/* Center the icons properly */}
                   <div className="flex justify-center md:justify-center space-x-4 items-center mb-4 md:mb-0">
                     <a
                       href="https://wa.me/+918300457501"
@@ -255,7 +216,7 @@ const ModernNavbar = () => {
             </motion.div>
           )}
         </AnimatePresence>
-      </motion.nav>
+      </nav>
     </>
   );
 };

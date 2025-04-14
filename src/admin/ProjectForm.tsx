@@ -227,13 +227,11 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ project, onClose, onSave }) =
                     required
                   >
                     <option value="">Select a project type</option>
-                    <option value="Residential">Residential</option>
-                    <option value="Commercial">Commercial</option>
-                    <option value="Industrial">Industrial</option>
-                    <option value="Project">Project</option>
+                    <option value="Residential Construction">Residential Construction</option>
+                    <option value="Commercial Projects">Commercial Projects</option>
+                    <option value="Industrial Construction">Industrial Construction</option>
                     <option value="Renovation">Renovation</option>
-                    <option value="Design">Design</option>
-                    <option value="Interior">Interior</option>
+                    <option value="Design Services">Design Services</option>
                     <option value="Project Management">
                       Project Management
                     </option>

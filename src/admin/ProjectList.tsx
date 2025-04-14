@@ -1,5 +1,6 @@
 import React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
+import toast, { Toaster } from 'react-hot-toast'; // ✅ Hot-toast import
 import ProjectItem from './ProjectItems';
 import { Project } from './services/projects';
 
@@ -13,6 +14,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects, onEdit, onDelete })
   // Handle invalid projects data
   if (!projects || !Array.isArray(projects)) {
     console.error('Projects is not an array:', projects);
+    toast.error('Failed to load projects.'); // ✅ Show toast on error
     return (
       <div className="bg-red-100 p-6 rounded-lg border border-red-300 text-red-700">
         <h3 className="text-lg font-medium mb-2">Error Loading Projects</h3>
@@ -29,6 +31,12 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects, onEdit, onDelete })
       </div>
     );
   }
+
+  // ✅ Custom handler to show toast on delete
+  const handleDelete = (id: string) => {
+    onDelete(id);
+    toast.success('Project deleted successfully!');
+  };
 
   return (
     <div className="space-y-6">
@@ -62,11 +70,11 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects, onEdit, onDelete })
                       Drag to reorder
                     </span>
                   </div>
-                  
+
                   <ProjectItem
                     project={project}
                     onEdit={onEdit}
-                    onDelete={onDelete}
+                    onDelete={handleDelete} // ✅ Use custom delete handler
                     index={index}
                   />
                 </div>
@@ -75,6 +83,9 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects, onEdit, onDelete })
           );
         })}
       </div>
+
+      {/* ✅ Toaster to render the notifications */}
+      <Toaster position="top-right" reverseOrder={false} />
     </div>
   );
 };

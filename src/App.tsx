@@ -13,10 +13,12 @@ import Dashboard from './admin/Dashboard';
 import CustomCursor from './components/CustomCursor';
 import { Scroll } from 'lucide-react';
 import ScrollToTop from './components/ScrollToTop';
+import { Toaster } from 'react-hot-toast';
 function App() {
   return (
     
     <BrowserRouter>
+    <Toaster position="top-right" reverseOrder={false} />
       <CustomCursor />
       <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100">
         <NavBar />

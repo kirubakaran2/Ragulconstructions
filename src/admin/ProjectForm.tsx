@@ -1,4 +1,5 @@
 import { useState, useEffect, ChangeEvent, FormEvent } from "react";
+import { toast } from "react-hot-toast"; // ✅ Import toast
 import projectService from "./services/projects";
 
 interface Project {
@@ -7,9 +8,9 @@ interface Project {
   description: string;
   location: string;
   year: string;
-  ytlink:string;
-  instalink:string;
-  feedback:string;
+  ytlink: string;
+  instalink: string;
+  feedback: string;
   images: string[];
   type: string;
 }
@@ -20,23 +21,19 @@ interface ProjectFormProps {
   onSave: () => void;
 }
 
-const ProjectForm: React.FC<ProjectFormProps> = ({
-  project,
-  onClose,
-  onSave,
-}) => {
-  const [title, setTitle] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
-  const [location, setLocation] = useState<string>("");
-  const [year, setYear] = useState<string>("");
-  const [ytlink, setytlink] = useState<string>("");
-  const [instalink, setinstalink] = useState<string>("");
-  const [feedback, setfeedback] = useState<string>("");
-  const [type, setType] = useState<string>("");
+const ProjectForm: React.FC<ProjectFormProps> = ({ project, onClose, onSave }) => {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [location, setLocation] = useState("");
+  const [year, setYear] = useState("");
+  const [ytlink, setytlink] = useState("");
+  const [instalink, setinstalink] = useState("");
+  const [feedback, setfeedback] = useState("");
+  const [type, setType] = useState("");
   const [images, setImages] = useState<File[]>([]);
   const [previewImages, setPreviewImages] = useState<string[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string>("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     if (project) {
@@ -66,10 +63,8 @@ const ProjectForm: React.FC<ProjectFormProps> = ({
     setPreviewImages(newPreview);
 
     if (index < previewImages.length - images.length) {
-      // Removing an existing image (not from the new uploads)
-      // You might want to track which existing images to delete
+      // Handle removing old image from existing ones if needed
     } else {
-      // Removing a newly uploaded image
       const newImages = [...images];
       newImages.splice(index - (previewImages.length - images.length), 1);
       setImages(newImages);
@@ -88,22 +83,25 @@ const ProjectForm: React.FC<ProjectFormProps> = ({
       formData.append("location", location);
       formData.append("year", year);
       formData.append("type", type);
-      formData.append("ytlink",ytlink);
-      formData.append("instalink",instalink);
-      formData.append("feedback",feedback);
+      formData.append("ytlink", ytlink);
+      formData.append("instalink", instalink);
+      formData.append("feedback", feedback);
       images.forEach((image) => {
         formData.append("images", image);
       });
 
       if (project) {
-        await projectService.update(project._id!, formData); // Safe to use `project._id!` if `project` exists
+        await projectService.update(project._id!, formData);
+        toast.success("Project updated successfully!"); // ✅ Toast on update
       } else {
         await projectService.create(formData);
+        toast.success("Project created successfully!"); // ✅ Toast on create
       }
 
       onSave();
     } catch (err: any) {
       setError(err.message || "Something went wrong");
+      toast.error(err.message || "Something went wrong"); // ❌ Toast on error
     } finally {
       setIsLoading(false);
     }
@@ -117,10 +115,7 @@ const ProjectForm: React.FC<ProjectFormProps> = ({
             <h2 className="text-xl font-semibold">
               {project ? "Edit Project" : "Add New Project"}
             </h2>
-            <button
-              onClick={onClose}
-              className="text-gray-500 hover:text-gray-700"
-            >
+            <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
               &times;
             </button>
           </div>
@@ -132,7 +127,7 @@ const ProjectForm: React.FC<ProjectFormProps> = ({
           )}
 
           <form onSubmit={handleSubmit}>
-            <div className="space-y-4">
+          <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700">
                   Title
@@ -284,14 +279,14 @@ const ProjectForm: React.FC<ProjectFormProps> = ({
               <button
                 type="button"
                 onClick={onClose}
-                className="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={isLoading}
-                className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
+                className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50"
               >
                 {isLoading ? "Saving..." : "Save"}
               </button>

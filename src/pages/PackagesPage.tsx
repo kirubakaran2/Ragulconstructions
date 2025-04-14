@@ -170,6 +170,9 @@ const PackagesPage = () => {
       : 'Commercial_Construction_Package.pdf';
     link.click();
   };
+  const handlecontactClick = () => {
+    window.location.href = '/contact'; 
+  }
   
 
   const handleFormSubmit = async () => {
@@ -391,7 +394,9 @@ const PackagesPage = () => {
               <Download className="w-5 h-5 mr-2" />
               Download Full Brochure
             </button>
-            <button className="px-6 py-3 bg-transparent border-2 border-white text-white font-medium rounded-lg hover:bg-white hover:text-amber-600 transition-colors">
+            <button
+             onClick={handlecontactClick}
+             className="px-6 py-3 bg-transparent border-2 border-white text-white font-medium rounded-lg hover:bg-white hover:text-amber-600 transition-colors">
               Talk to an Expert
             </button>
           </div>

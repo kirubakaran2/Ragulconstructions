@@ -215,7 +215,7 @@ const HomePage = () => {
               transition={{ duration: 0.7, delay: 0.5 }}
               viewport={{ once: true }}
             >
-              In a market filled with unorganized services, Ragul Construction
+              In a market filled with unorganized services, Ragul Constructions
               offers professional, in-house home construction for clients across
               all budget ranges, from moderate to premium.
             </motion.p>

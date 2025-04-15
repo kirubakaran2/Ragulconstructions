@@ -22,7 +22,7 @@ const About = () => {
               Building Excellence Since 2008
             </h3>
             <p className="text-slate-600 mb-6">
-              At Ragul Construction, we've been turning architectural dreams into reality for over 15 years. 
+              At Ragul Constructions, we've been turning architectural dreams into reality for over 15 years. 
               Our commitment to quality, innovation, and customer satisfaction has made us one of the most 
               trusted names in the construction industry in Pondicherry.
             </p>

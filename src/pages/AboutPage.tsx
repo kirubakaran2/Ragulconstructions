@@ -6,16 +6,16 @@ import { motion, useScroll, useTransform, useAnimation } from 'framer-motion';
 
 const AboutPage = () => {
   const [title, setTitle] = useState('');
-  const originalTitle = "Crafting Architectural Masterpieces – Ragul Construction";
+  const originalTitle = "Crafting Architectural Masterpieces – Ragul Constructions";
   const scrollRef = useRef(null);
   const controls = useAnimation();
   
   const paragraphs = [
-    "For three decades, Ragul Construction has been the cornerstone of architectural excellence in Pondicherry, weaving dreams into tangible landmarks that define the cityscape.",
+    "For three decades, Ragul Constructions has been the cornerstone of architectural excellence in Pondicherry, weaving dreams into tangible landmarks that define the cityscape.",
     "Our master craftsmen and visionary designers collaborate to deliver unparalleled civil contracting, immersive 3D visualizations, architectural blueprints, striking elevations, and bespoke interior solutions—each bearing our signature of distinction.",
     "We embrace a philosophy where innovation meets tradition, creating spaces that resonate with character while standing as monuments to meticulous craftsmanship and unwavering quality.",
     "Every project—whether an intimate family haven, a dynamic workspace, or a commanding commercial edifice—receives our undivided commitment from conceptualization to the final brushstroke.",
-    "At Ragul Construction, we don't merely construct buildings; we orchestrate experiences, craft legacies, and build tomorrow's heritage today.",
+    "At Ragul Constructions, we don't merely construct buildings; we orchestrate experiences, craft legacies, and build tomorrow's heritage today.",
     "Allow us to transform your vision into a magnificent reality. Connect with us to begin your journey toward architectural splendor."
   ];
 
@@ -23,7 +23,7 @@ const AboutPage = () => {
     { 
       name: "Priya Ramachandran", 
       role: "Homeowner", 
-      text: "Ragul Construction transformed our vision into a stunning reality. Their attention to detail and commitment to quality exceeded all expectations.", 
+      text: "Ragul Constructions transformed our vision into a stunning reality. Their attention to detail and commitment to quality exceeded all expectations.", 
       rating: 5 
     },
     { 

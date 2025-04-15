@@ -22,7 +22,7 @@ const Hero = () => {
             <span className="block text-[#D4AF37]">With Precision</span>
           </h1>
           <p className="text-xl text-gray-200 mb-8 max-w-2xl">
-            Transform your vision into reality with Ragul Construction. 
+            Transform your vision into reality with Ragul Constructions. 
             We bring excellence, innovation, and reliability to every project.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">

@@ -213,7 +213,7 @@ const About = () => {
               <div className="w-20 h-1 bg-[#D4AF37] mb-6"></div>
               
               <p className="text-slate-700 mb-4">
-                With 30 years of expertise, Ragul Construction is a trusted name in residential and 
+                With 30 years of expertise, Ragul Constructions is a trusted name in residential and 
                 commercial construction in Pondicherry. We specialize in civil contracting, 3D design, 
                 architectural floor plans, elevation designs, and interior solutions, ensuring high-quality 
                 and customized solutions for every project.
@@ -227,7 +227,7 @@ const About = () => {
               </p>
               
               <p className="text-slate-700 mb-6">
-                At Ragul Construction, we don't just build structures—we create lasting landmarks that 
+                At Ragul Constructions, we don't just build structures—we create lasting landmarks that 
                 stand the test of time. Let's bring your vision to life!
               </p>
               

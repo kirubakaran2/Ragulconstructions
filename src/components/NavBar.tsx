@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Instagram, X } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import logo from "../assets/ragulconstruction.jpg";
+import logo from "../assets/ragulconstruction-removebg-preview.png";
 
 const ModernNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -38,12 +38,12 @@ const ModernNavbar = () => {
             <img
               src={logo}
               alt="Logo"
-              className="h-10 rounded-lg w-10 text-[#D4AF37]"
+              className="h-10 rounded-lg w-10"
             />
-            {/* <span className="flex text-4xl sm:text-5xl font-bold font-serif bg-gradient-to-r from-[#D4AF37] to-[#B59030] text-transparent bg-clip-text">
+            {/* <span className="flex text-4xl sm:text-3xl font-bold font-lora bg-gradient-to-r from-[#D4AF37] to-[#B59030] text-transparent bg-clip-text">
               R
             </span> */}
-            <div className="flex text-xl sm:text-2xl font-bold font-serif bg-gradient-to-r from-[#D4AF37] to-[#B59030] text-transparent bg-clip-text">
+            <div className="flex text-xl sm:text-1xl font-light font-Merriweather bg-gradient-to-r from-[#D4AF37] to-[#B59030] text-transparent bg-clip-text">
               AGUL CONSTRUCTIONS
             </div>
           </Link>

@@ -7,6 +7,8 @@ export default {
         'Lalezar': ['Lalezar', 'cursive'],
         'lay-grotesk': ['Lay Grotesk Tria', 'sans-serif'],
         'Host+Grotesk': ['Host Grotesk', 'sans-serif'],
+        'lora': ['Lora', 'serif'],
+        'Merriweather': ['Merriweather', 'serif'],
       },
       animation: {
         'slide-up': 'slideUp 0.6s ease-out',

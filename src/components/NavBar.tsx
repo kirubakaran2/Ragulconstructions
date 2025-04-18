@@ -39,7 +39,7 @@ const ModernNavbar = () => {
         <FaWhatsapp className="h-8 w-8" />
       </a>
 
-      {/* Logo */}
+      
       <Link to="/" className="fixed top-0 left-0 z-50 p-2">
         <img
           src={logo}

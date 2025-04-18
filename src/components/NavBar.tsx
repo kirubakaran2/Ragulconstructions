@@ -3,8 +3,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Instagram, X } from "lucide-react";
 import { FaWhatsapp, FaInstagram } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import logo from "../assets/ragullogo.png";
-
 const ModernNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -39,10 +37,10 @@ const ModernNavbar = () => {
         <FaWhatsapp className="h-8 w-8" />
       </a>
 
-      
+      {/* Logo */}
       <Link to="/" className="fixed top-0 left-0 z-50 p-2">
         <img
-          src={logo}
+          src="https://res.cloudinary.com/dnorttead/image/upload/v1744991589/ragullogo_wgevv5.png"
           alt="Logo"
           className="h-10 w-24 rounded-lg" // Adjusted size to make logo visible
         />

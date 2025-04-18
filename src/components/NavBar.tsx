@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Instagram, X } from "lucide-react";
-import { FaWhatsapp } from "react-icons/fa";
+import { FaWhatsapp, FaInstagram } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import logo from "../assets/ragulconstruction-removebg-preview.png";
+import logo from "../assets/ragullogo.png";
 
 const ModernNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -21,34 +21,40 @@ const ModernNavbar = () => {
 
   return (
     <>
+    <a
+        href="https://www.instagram.com/ragulconstructions.in?igsh=b2E3ZXJwZTYzdmd4"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-20 right-6 z-40 bg-pink-500 text-white p-3 rounded-full shadow-lg hover:bg-pink-600 transition-colors"
+      >
+        <FaInstagram className="h-8 w-8" />
+      </a>
       {/* Floating WhatsApp Button */}
       <a
         href="https://wa.me/+918300457501"
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 z-40 bg-green-500 text-white p-3 rounded-full shadow-lg hover:bg-green-600 transition-colors"
+        className="fixed bottom-5 right-6 z-40 bg-green-500 text-white p-3 rounded-full shadow-lg hover:bg-green-600 transition-colors"
       >
         <FaWhatsapp className="h-8 w-8" />
       </a>
 
-      {/* Navbar */}
-      <nav className="fixed top-0 left-0 w-full z-50 p-2 text-neutral-800 bg-white shadow-md transition-all duration-300">
-        <div className="flex justify-between items-center">
-          <Link to="/" className="flex items-center space-x-1">
-            <img
-              src={logo}
-              alt="Logo"
-              className="h-10 rounded-lg w-10"
-            />
-            {/* <span className="flex text-4xl sm:text-3xl font-bold font-lora bg-gradient-to-r from-[#D4AF37] to-[#B59030] text-transparent bg-clip-text">
-              R
-            </span> */}
-            <div className="flex text-xl sm:text-1xl font-light font-Merriweather bg-gradient-to-r from-[#D4AF37] to-[#B59030] text-transparent bg-clip-text">
-              AGUL CONSTRUCTIONS
-            </div>
-          </Link>
+      {/* Logo */}
+      <Link to="/" className="fixed top-0 left-0 z-50 p-2">
+        <img
+          src={logo}
+          alt="Logo"
+          className="h-10 w-24 rounded-lg" // Adjusted size to make logo visible
+        />
+      </Link>
 
-          <div className="hidden md:flex space-x-6 items-center">
+      {/* Navbar */}
+      <nav className="fixed top-0 left-0 w-full z-50 p-4 text-neutral-800 shadow-md transition-all duration-300">
+        <div className="flex justify-between items-center">
+          <div className="flex-grow"></div> {/* This will push the items to the right */}
+
+          {/* CONTACT and MENU buttons - Desktop version */}
+          <div className="hidden md:flex space-x-6 items-center ml-auto"> {/* hidden on mobile */}
             <Link
               to="/contact"
               className="text-sm uppercase tracking-wider flex text-2xl font-bold font-Host+Grotesk bg-gradient-to-r from-[#D4AF37] to-[#B59030] text-transparent bg-clip-text"
@@ -64,7 +70,7 @@ const ModernNavbar = () => {
             </button>
           </div>
 
-          {/* Mobile Menu Toggle */}
+          {/* Mobile Menu Toggle (Hamburger Icon) */}
           <motion.div
             className="md:hidden cursor-pointer z-50"
             onClick={toggleMenu}
@@ -136,10 +142,10 @@ const ModernNavbar = () => {
               <div className="container mx-auto px-6 py-12 h-full flex flex-col justify-between relative z-10">
                 <div className="flex justify-between items-center">
                   <div className="flex items-center space-x-3">
-                    <img src={logo} alt="Logo" className="h-10 rounded-lg w-10" />
-                    <div className="flex text-2xl font-bold font-Host+Grotesk bg-gradient-to-r from-[#D4AF37] to-[#B59030] text-transparent bg-clip-text">
+                    <img src={logo} alt="Logo" className="h-10 w-24" />
+                    {/* <div className="text-2xl font-bold font-Host+Grotesk bg-gradient-to-r from-[#D4AF37] to-[#B59030] text-transparent bg-clip-text">
                       Ragul Constructions
-                    </div>
+                    </div> */}
                   </div>
                   <button onClick={toggleMenu} className="text-neutral-800">
                     <X className="h-8 w-8" />

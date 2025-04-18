@@ -140,7 +140,7 @@ const ModernNavbar = () => {
               <div className="container mx-auto px-6 py-12 h-full flex flex-col justify-between relative z-10">
                 <div className="flex justify-between items-center">
                   <div className="flex items-center space-x-3">
-                    <img src={logo} alt="Logo" className="h-10 w-24" />
+                    <img src="https://res.cloudinary.com/dnorttead/image/upload/v1744991589/ragullogo_wgevv5.png" alt="Logo" className="h-10 w-24" />
                     {/* <div className="text-2xl font-bold font-Host+Grotesk bg-gradient-to-r from-[#D4AF37] to-[#B59030] text-transparent bg-clip-text">
                       Ragul Constructions
                     </div> */}

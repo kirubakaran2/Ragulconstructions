@@ -38,14 +38,15 @@ const ModernNavbar = () => {
       </a>
 
       {/* Logo */}
-      <Link to="/" className="fixed top-1 left-4 z-[60] block rounded-lg">
-        <img
-          src="https://res.cloudinary.com/dnorttead/image/upload/v1744991589/ragullogo_wgevv5.png"
-          alt="Logo"
-          className="h-10 w-24 rounded-lg"
-        />
-      </Link>
-
+      {!isMenuOpen && (
+  <Link to="/" className="fixed top-1 left-4 z-[60] block rounded-lg">
+    <img
+      src="https://res.cloudinary.com/dnorttead/image/upload/v1744991589/ragullogo_wgevv5.png"
+      alt="Logo"
+      className="h-10 w-24 rounded-lg"
+    />
+  </Link>
+)}
       {/* Navbar */}
       <nav className="fixed top-0 left-0 w-full z-50 pl-32 pr-4 py-4 text-neutral-800 shadow-md transition-all duration-300">        <div className="flex justify-between items-center">
           <div className="flex-grow"></div> {/* This will push the items to the right */}
@@ -139,10 +140,10 @@ const ModernNavbar = () => {
               <div className="container mx-auto px-6 py-12 h-full flex flex-col justify-between relative z-10">
                 <div className="flex justify-between items-center">
                   <div className="flex items-center space-x-3">
-                    {/* <img src="https://res.cloudinary.com/dnorttead/image/upload/v1744991589/ragullogo_wgevv5.png" alt="Logo" className="h-10 w-24" /> */}
-                    <div className="text-2xl font-bold font-Host+Grotesk bg-gradient-to-r from-[#D4AF37] to-[#B59030] text-transparent bg-clip-text">
+                    <img src="https://res.cloudinary.com/dnorttead/image/upload/v1744991589/ragullogo_wgevv5.png" alt="Logo" className="h-10 w-24" />
+                    {/* <div className="text-2xl font-bold font-Host+Grotesk bg-gradient-to-r from-[#D4AF37] to-[#B59030] text-transparent bg-clip-text">
                       Ragul Constructions
-                    </div>
+                    </div> */}
                   </div>
                   <button onClick={toggleMenu} className="text-neutral-800">
                     <X className="h-8 w-8" />

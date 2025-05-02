@@ -339,7 +339,7 @@ export default function ConstructionServicesHero() {
               >
                 <button
                   onClick={() => navigateToService(currentService.slug)}
-                  className="inline-flex items-center justify-center px-6 py-3 sm:px-8 sm:py-4 bg-[#D4AF37] text-white rounded-full text-base sm:text-lg font-semibold hover:bg-[#B59030] transition-colors duration-300 w-full sm:w-fit overflow-hidden"
+                  className="inline-flex items-center justify-center px-6 py-3 sm:px-8 sm:py-4 bg-[#D4AF37] text-white rounded-full text-base sm:text-lg font-semibold hover:bg-[#B59030] transition-colors duration-300 w-fit sm:w-fit overflow-hidden"
                 >
                   <span className="relative z-10 flex items-center">
                     Explore This Service
@@ -357,7 +357,7 @@ export default function ConstructionServicesHero() {
 
                 <button
                   onClick={() => navigateToContact()}
-                  className="inline-flex items-center justify-center px-6 py-3 sm:px-8 sm:py-4 bg-[#D4AF37] text-white rounded-full text-base sm:text-lg font-semibold hover:bg-[#B59030] transition-colors duration-300 w-full sm:w-fit overflow-hidden"                >
+                  className="inline-flex items-center justify-center px-6 py-3 sm:px-8 sm:py-4 bg-[#D4AF37] text-white rounded-full text-base sm:text-lg font-semibold hover:bg-[#B59030] transition-colors duration-300 w-fit sm:w-fit overflow-hidden"                >
                   <span className="relative z-10 flex items-center">
                     Contact us
                     <motion.span
